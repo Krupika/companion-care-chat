@@ -15,6 +15,7 @@ import {
   Plus
 } from "lucide-react";
 import { toast } from "sonner";
+import { ExerciseGuide } from "./ExerciseGuide";
 
 interface CopingStrategy {
   id: string;
@@ -24,10 +25,17 @@ interface CopingStrategy {
   category: "breathing" | "mindfulness" | "grounding" | "movement" | "cognitive";
   icon: any;
   isFavorite: boolean;
+  steps: Array<{
+    id: number;
+    instruction: string;
+    duration: number;
+    type: "instruction" | "breathing" | "hold" | "mindfulness";
+  }>;
 }
 
 export function CopingToolbox() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [activeExercise, setActiveExercise] = useState<CopingStrategy | null>(null);
   const [strategies, setStrategies] = useState<CopingStrategy[]>([
     {
       id: "box-breathing",
@@ -37,6 +45,15 @@ export function CopingToolbox() {
       category: "breathing",
       icon: Wind,
       isFavorite: true,
+      steps: [
+        { id: 1, instruction: "Let's begin with finding a comfortable position", duration: 10, type: "instruction" },
+        { id: 2, instruction: "Breathe in slowly through your nose", duration: 4, type: "breathing" },
+        { id: 3, instruction: "Hold your breath gently", duration: 4, type: "hold" },
+        { id: 4, instruction: "Exhale slowly through your mouth", duration: 4, type: "breathing" },
+        { id: 5, instruction: "Hold empty for a moment", duration: 4, type: "hold" },
+        { id: 6, instruction: "Continue this pattern", duration: 150, type: "breathing" },
+        { id: 7, instruction: "Take a moment to notice how you feel", duration: 15, type: "mindfulness" }
+      ]
     },
     {
       id: "54321-grounding",
@@ -46,6 +63,15 @@ export function CopingToolbox() {
       category: "grounding",
       icon: Leaf,
       isFavorite: false,
+      steps: [
+        { id: 1, instruction: "Find a comfortable position and take a deep breath", duration: 15, type: "instruction" },
+        { id: 2, instruction: "Look around and name 5 things you can see", duration: 45, type: "mindfulness" },
+        { id: 3, instruction: "Notice 4 things you can touch or feel", duration: 45, type: "mindfulness" },
+        { id: 4, instruction: "Listen for 3 different sounds around you", duration: 45, type: "mindfulness" },
+        { id: 5, instruction: "Identify 2 things you can smell", duration: 30, type: "mindfulness" },
+        { id: 6, instruction: "Think of 1 thing you can taste", duration: 20, type: "mindfulness" },
+        { id: 7, instruction: "Take three deep breaths and feel yourself in the present", duration: 30, type: "breathing" }
+      ]
     },
     {
       id: "body-scan",
@@ -55,6 +81,16 @@ export function CopingToolbox() {
       category: "mindfulness",
       icon: Heart,
       isFavorite: true,
+      steps: [
+        { id: 1, instruction: "Lie down or sit comfortably with your eyes closed", duration: 20, type: "instruction" },
+        { id: 2, instruction: "Focus on your toes, notice any sensations", duration: 60, type: "mindfulness" },
+        { id: 3, instruction: "Move your attention to your feet and ankles", duration: 60, type: "mindfulness" },
+        { id: 4, instruction: "Scan up through your legs, noticing each part", duration: 90, type: "mindfulness" },
+        { id: 5, instruction: "Focus on your torso, from hips to shoulders", duration: 90, type: "mindfulness" },
+        { id: 6, instruction: "Notice your arms, from shoulders to fingertips", duration: 60, type: "mindfulness" },
+        { id: 7, instruction: "Scan your neck, face, and the top of your head", duration: 60, type: "mindfulness" },
+        { id: 8, instruction: "Feel your whole body at once, completely relaxed", duration: 60, type: "mindfulness" }
+      ]
     },
     {
       id: "thought-stop",
@@ -64,6 +100,14 @@ export function CopingToolbox() {
       category: "cognitive",
       icon: Brain,
       isFavorite: false,
+      steps: [
+        { id: 1, instruction: "Notice the negative thought pattern", duration: 15, type: "instruction" },
+        { id: 2, instruction: "Say 'STOP' out loud or in your mind", duration: 5, type: "instruction" },
+        { id: 3, instruction: "Take 3 deep breaths to create space", duration: 15, type: "breathing" },
+        { id: 4, instruction: "Replace with a positive or neutral thought", duration: 30, type: "mindfulness" },
+        { id: 5, instruction: "Focus on the present moment", duration: 45, type: "mindfulness" },
+        { id: 6, instruction: "Acknowledge your strength in redirecting thoughts", duration: 10, type: "mindfulness" }
+      ]
     },
     {
       id: "gentle-movement",
@@ -73,6 +117,16 @@ export function CopingToolbox() {
       category: "movement",
       icon: Sun,
       isFavorite: false,
+      steps: [
+        { id: 1, instruction: "Stand with your feet hip-width apart", duration: 10, type: "instruction" },
+        { id: 2, instruction: "Roll your shoulders back and down 5 times", duration: 30, type: "instruction" },
+        { id: 3, instruction: "Gently turn your head left and right", duration: 30, type: "instruction" },
+        { id: 4, instruction: "Reach your arms up and stretch to each side", duration: 60, type: "instruction" },
+        { id: 5, instruction: "Do gentle forward fold, hanging loose", duration: 45, type: "instruction" },
+        { id: 6, instruction: "Stand and do gentle side bends", duration: 60, type: "instruction" },
+        { id: 7, instruction: "End with 3 deep breaths, arms overhead", duration: 20, type: "breathing" },
+        { id: 8, instruction: "Notice how your body feels now", duration: 25, type: "mindfulness" }
+      ]
     },
     {
       id: "wave-breathing",
@@ -82,6 +136,13 @@ export function CopingToolbox() {
       category: "breathing",
       icon: Waves,
       isFavorite: false,
+      steps: [
+        { id: 1, instruction: "Sit comfortably and imagine ocean waves", duration: 15, type: "instruction" },
+        { id: 2, instruction: "Breathe in slowly like a wave building", duration: 6, type: "breathing" },
+        { id: 3, instruction: "Exhale slowly like a wave receding", duration: 8, type: "breathing" },
+        { id: 4, instruction: "Continue this wave-like rhythm", duration: 240, type: "breathing" },
+        { id: 5, instruction: "Feel the calm that comes like still water", duration: 30, type: "mindfulness" }
+      ]
     },
   ]);
 
@@ -111,10 +172,18 @@ export function CopingToolbox() {
   };
 
   const startExercise = (strategy: CopingStrategy) => {
-    toast.success(`Starting ${strategy.title}`, {
-      description: `Take ${strategy.duration} for yourself 🌱`,
+    setActiveExercise(strategy);
+  };
+
+  const handleExerciseComplete = () => {
+    toast.success("Exercise completed! 🌟", {
+      description: "Great job taking time for your well-being",
     });
-    // Here you would implement the actual exercise flow
+    setActiveExercise(null);
+  };
+
+  const handleExerciseClose = () => {
+    setActiveExercise(null);
   };
 
   const getCategoryColor = (category: CopingStrategy["category"]) => {
@@ -127,6 +196,18 @@ export function CopingToolbox() {
     };
     return colors[category] || "gentle";
   };
+
+  if (activeExercise) {
+    return (
+      <div className="min-h-screen bg-background p-4">
+        <ExerciseGuide 
+          exercise={activeExercise}
+          onComplete={handleExerciseComplete}
+          onClose={handleExerciseClose}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-4 space-y-6">

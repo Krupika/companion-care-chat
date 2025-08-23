@@ -3,6 +3,8 @@ import { Onboarding } from "@/components/Onboarding";
 import { ChatInterface } from "@/components/ChatInterface";
 import { CopingToolbox } from "@/components/CopingToolbox";
 import { Journal } from "@/components/Journal";
+import { Settings } from "@/components/Settings";
+import { Progress } from "@/components/Progress";
 import { Navigation } from "@/components/Navigation";
 
 const Index = () => {
@@ -13,6 +15,10 @@ const Index = () => {
   const handleOnboardingComplete = (data: { name: string; focus: string }) => {
     setUserData(data);
     setIsOnboarded(true);
+  };
+
+  const handleUpdateProfile = (data: { name: string; focus: string }) => {
+    setUserData(data);
   };
 
   if (!isOnboarded) {
@@ -37,32 +43,14 @@ const Index = () => {
       case "journal":
         return <Journal />;
       case "progress":
-        return (
-          <div className="max-w-4xl mx-auto p-4 space-y-6 pb-20 md:pb-6">
-            <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Your Wellness Journey 📊
-              </h1>
-              <p className="text-muted-foreground">
-                Every small step matters
-              </p>
-            </div>
-            {/* Progress content will be implemented in future iterations */}
-          </div>
-        );
+        return <Progress />;
       case "settings":
         return (
-          <div className="max-w-4xl mx-auto p-4 space-y-6 pb-20 md:pb-6">
-            <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Settings ⚙️
-              </h1>
-              <p className="text-muted-foreground">
-                Customize your experience
-              </p>
-            </div>
-            {/* Settings content will be implemented in future iterations */}
-          </div>
+          <Settings 
+            userName={userData?.name || ""} 
+            userFocus={userData?.focus || ""}
+            onUpdateProfile={handleUpdateProfile}
+          />
         );
       default:
         return (

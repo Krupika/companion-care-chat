@@ -76,6 +76,8 @@ export function ChatInterface({ userName, userFocus }: ChatInterfaceProps) {
   };
 
   const generateBotResponse = (userMessage: string, mood: Message["mood"]): string => {
+    const lowerMessage = userMessage.toLowerCase();
+    
     if (mood === "crisis") {
       return `I hear you, and I'm really concerned about you. You matter, and there are people who want to help. Please reach out:
       
@@ -87,44 +89,100 @@ export function ChatInterface({ userName, userFocus }: ChatInterfaceProps) {
 You don't have to go through this alone. Please consider talking to a mental health professional. 💙`;
     }
     
+    // Enhanced conversation based on context
+    if (lowerMessage.includes("work") || lowerMessage.includes("job")) {
+      if (mood === "stressed") {
+        return `Work stress can feel overwhelming. I understand how that pressure can weigh on you 🌱
+
+Here are some quick strategies:
+• Take 3 deep breaths between tasks
+• Step away for 2 minutes every hour
+• Write down what's bothering you - sometimes getting it out of your head helps
+
+What's the most stressful part of your work situation right now?`;
+      }
+    }
+    
+    if (lowerMessage.includes("sleep") || lowerMessage.includes("tired") || lowerMessage.includes("exhausted")) {
+      return `Sleep challenges can affect everything else, can't they? 😔 Your well-being matters.
+
+Some gentle suggestions:
+• Try a 10-minute wind-down routine before bed
+• Keep your room cool and dark
+• Consider limiting screens 1 hour before sleep
+• Practice the 4-7-8 breathing technique
+
+How has your sleep been affecting your daily life? I'm here to listen and help you find strategies that work for you. 💙`;
+    }
+    
+    if (lowerMessage.includes("relationship") || lowerMessage.includes("friend") || lowerMessage.includes("family")) {
+      return `Relationships can bring such joy and sometimes such challenges too. Thank you for sharing this with me 💙
+
+When we're struggling with relationships, it helps to remember:
+• Your feelings are valid, no matter what
+• Sometimes we can only control our own actions and responses
+• It's okay to set boundaries when needed
+• You deserve to be treated with kindness and respect
+
+Would you like to talk more about what's happening? I'm here to listen without judgment. 🌸`;
+    }
+    
     if (mood === "stressed") {
-      return `It sounds like you're feeling really overwhelmed right now. I'm here for you 🌱 
+      return `I can feel the stress in your words. That overwhelmed feeling is so real, and I want you to know you're not alone in this 🌱
 
-Let's try a quick breathing exercise: Take a slow breath in for 4 counts, hold for 4, then out for 6. This can help calm your nervous system.
+Let's start with your breath - it's something we always have control over:
+• Breathe in slowly for 4 counts
+• Hold gently for 4 counts  
+• Exhale slowly for 6 counts
+• Repeat 3 times
 
-Would you like me to guide you through a longer relaxation technique?`;
+What's been the biggest source of stress for you lately? Sometimes talking through it can help lighten the load. I'm here to listen. 💙`;
     }
     
     if (mood === "anxious") {
-      return `I can sense the anxiety you're experiencing. That feeling is valid, and you're not alone 💙
+      return `I can sense that anxious energy you're experiencing. Anxiety can feel so intense, but you're safe right now 💙
 
-Try this grounding technique: Name 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, and 1 you can taste.
+Let's try grounding together:
+🌿 Look around and name 5 things you can see
+✋ Notice 4 things you can touch  
+👂 Listen for 3 things you can hear
+👃 Identify 2 things you can smell
+👅 Think of 1 thing you can taste
 
-Remember: This feeling will pass. You've gotten through difficult moments before, and you can do it again. 🌸`;
+This feeling will pass. You've gotten through anxious moments before, and you can do it again. What usually helps you feel more grounded? 🌸`;
     }
     
     if (mood === "sad") {
-      return `I hear the sadness in your words, and I want you to know that it's okay to feel this way. Your feelings are valid 💙
+      return `I can hear the sadness in your words, and I want you to know that it's completely okay to feel this way. Your emotions are valid and important 💙
 
-Sometimes when we're sad, it helps to:
-• Acknowledge the feeling without judgment
-• Practice self-compassion
-• Reach out to someone you trust
-• Do something small that usually brings you comfort
+When we're sad, it can help to:
+• Let yourself feel the emotion without fighting it
+• Be gentle with yourself, like you would with a dear friend
+• Do one small thing that usually brings you comfort
+• Remember that feelings come and go like waves
 
-You're being brave by sharing this with me. 🌱`;
+You're being so brave by sharing this with me. Is there anything specific that's been weighing on your heart? I'm here to listen. 🌱`;
     }
     
     if (mood === "happy") {
-      return `It's wonderful to hear you're feeling good! 🌟 I love seeing you in this positive space. 
+      return `Your happiness is absolutely beautiful to witness! 🌟 I can feel the positive energy in your message.
 
-These moments of joy are precious - consider taking a moment to really savor this feeling. What's bringing you happiness today?`;
+These moments of joy are so precious - let's savor this feeling together:
+• Take a moment to really notice how happiness feels in your body
+• What specifically is bringing you this joy today?
+• Consider sharing this feeling with someone you care about
+
+I love seeing you in this wonderful space. What's been the highlight of your day so far? ✨`;
     }
     
-    // Default calm response
-    return `Thank you for sharing that with me. I'm here to listen and support you in whatever way I can 💙
-
-Is there anything specific you'd like to talk about or work through together today?`;
+    // Enhanced default responses with follow-up questions
+    const defaultResponses = [
+      `Thank you for sharing that with me. I can sense there's something on your mind 💙\n\nWhat's been occupying your thoughts lately? I'm here to listen and support you however I can.`,
+      `I appreciate you opening up to me. Every feeling and thought you have matters 🌱\n\nIs there something specific you'd like to explore together today? I'm here for whatever you need.`,
+      `Thank you for trusting me with your thoughts. Creating this space for yourself is already a positive step 💙\n\nWhat would feel most helpful for you right now - talking through something, learning a coping technique, or just having someone listen?`
+    ];
+    
+    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
   };
 
   const handleSend = async () => {
