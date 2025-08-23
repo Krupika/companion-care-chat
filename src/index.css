@@ -2,41 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Mindful Companion Design System - Warm, calming colors for mental wellness */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors - soft, warm palette */
+    --background: 35 25% 98%;
+    --foreground: 250 15% 25%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card colors - gentle warmth */
+    --card: 35 30% 96%;
+    --card-foreground: 250 15% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Popover colors */
+    --popover: 35 30% 96%;
+    --popover-foreground: 250 15% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - soft lavender for trust and calm */
+    --primary: 260 35% 75%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 260 45% 85%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - sage green for growth */
+    --secondary: 120 25% 85%;
+    --secondary-foreground: 120 40% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted colors - gentle neutrals */
+    --muted: 35 20% 92%;
+    --muted-foreground: 250 10% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - warm peach for energy */
+    --accent: 25 45% 85%;
+    --accent-foreground: 25 60% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive - soft red for alerts */
+    --destructive: 0 50% 70%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Border and input */
+    --border: 35 15% 88%;
+    --input: 35 15% 90%;
+    --ring: 260 35% 75%;
 
-    --radius: 0.5rem;
+    /* Custom wellness colors */
+    --wellness-calm: 200 30% 85%;
+    --wellness-energy: 45 60% 80%;
+    --wellness-focus: 160 30% 80%;
+    --wellness-balance: 280 25% 85%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-calm: linear-gradient(135deg, hsl(var(--wellness-calm)), hsl(var(--secondary)));
+    --gradient-warm: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--wellness-energy)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary-glow)), hsl(var(--accent)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(var(--primary) / 0.15);
+    --shadow-warm: 0 8px 30px -8px hsl(var(--accent) / 0.25);
+    --shadow-gentle: 0 2px 12px -2px hsl(var(--muted-foreground) / 0.1);
+
+    /* Animation */
+    --transition-gentle: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --radius: 1rem;
 
     --sidebar-background: 0 0% 98%;
 

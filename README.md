@@ -1,4 +1,22 @@
-# Welcome to your Lovable project
+# Mindful Companion 🌸
+
+A warm, supportive mental wellness chatbot app that feels like a caring friend. Helps users manage stress, anxiety, and mood with instant coping strategies, gentle check-ins, and delightful micro-moments of care.
+
+## Features
+
+- **Onboarding Flow**: Personalized welcome experience
+- **Interactive Chat**: AI companion with mood detection and empathetic responses
+- **Crisis Support**: Automatic detection and helpline resources
+- **Coping Toolbox**: Breathing exercises, mindfulness, grounding techniques
+- **Journaling**: Daily prompts and mood tracking
+- **Beautiful Design**: Calming colors and gentle gradients
+
+## Design Philosophy
+
+- Soft, warm color palette (lavender, sage green, peach)
+- Rounded, gentle UI elements
+- Empathetic, non-judgmental tone
+- Safe space for emotional expression
 
 ## Project info
 
