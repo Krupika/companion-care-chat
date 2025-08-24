@@ -87,12 +87,15 @@ export function Onboarding({ onComplete }: OnboardingProps) {
                 <div className="grid grid-cols-1 gap-3">
                   {focusOptions.map((option) => {
                     const IconComponent = option.icon;
+                    const isSelected = focus === option.value;
                     return (
                       <Button
                         key={option.value}
                         onClick={() => setFocus(option.value)}
-                        variant={focus === option.value ? option.color as any : "gentle"}
-                        className="justify-start h-12 text-left"
+                        variant={isSelected ? option.color as any : "outline"}
+                        className={`justify-start h-12 text-left transition-all ${
+                          isSelected ? "ring-2 ring-primary ring-offset-2 shadow-warm" : ""
+                        }`}
                       >
                         <IconComponent className="mr-3 h-5 w-5" />
                         {option.label}
