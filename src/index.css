@@ -6,61 +6,62 @@
 
 @layer base {
   :root {
-    /* Base colors - soft, warm palette */
-    --background: 35 25% 98%;
-    --foreground: 250 15% 25%;
+    /* Base colors - bright, vibrant wellness palette */
+    --background: 200 30% 97%;
+    --foreground: 230 15% 15%;
 
-    /* Card colors - gentle warmth */
-    --card: 35 30% 96%;
-    --card-foreground: 250 15% 25%;
+    /* Card colors - soft warmth with depth */
+    --card: 200 25% 95%;
+    --card-foreground: 230 15% 20%;
 
     /* Popover colors */
-    --popover: 35 30% 96%;
-    --popover-foreground: 250 15% 25%;
+    --popover: 200 25% 95%;
+    --popover-foreground: 230 15% 20%;
 
-    /* Primary - soft lavender for trust and calm */
-    --primary: 260 35% 75%;
+    /* Primary - vibrant teal for trust and healing */
+    --primary: 180 65% 55%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 260 45% 85%;
+    --primary-glow: 180 75% 75%;
 
-    /* Secondary - sage green for growth */
-    --secondary: 120 25% 85%;
-    --secondary-foreground: 120 40% 25%;
+    /* Secondary - warm coral for compassion */
+    --secondary: 15 85% 75%;
+    --secondary-foreground: 15 60% 25%;
 
-    /* Muted colors - gentle neutrals */
-    --muted: 35 20% 92%;
-    --muted-foreground: 250 10% 45%;
+    /* Muted colors - soft neutrals */
+    --muted: 200 15% 90%;
+    --muted-foreground: 230 10% 50%;
 
-    /* Accent - warm peach for energy */
-    --accent: 25 45% 85%;
-    --accent-foreground: 25 60% 25%;
+    /* Accent - golden yellow for positivity */
+    --accent: 45 95% 70%;
+    --accent-foreground: 45 70% 20%;
 
-    /* Destructive - soft red for alerts */
-    --destructive: 0 50% 70%;
+    /* Destructive - soft red for gentle alerts */
+    --destructive: 0 70% 65%;
     --destructive-foreground: 0 0% 100%;
 
     /* Border and input */
-    --border: 35 15% 88%;
-    --input: 35 15% 90%;
-    --ring: 260 35% 75%;
+    --border: 200 20% 85%;
+    --input: 200 20% 88%;
+    --ring: 180 65% 55%;
 
-    /* Custom wellness colors */
-    --wellness-calm: 200 30% 85%;
-    --wellness-energy: 45 60% 80%;
-    --wellness-focus: 160 30% 80%;
-    --wellness-balance: 280 25% 85%;
+    /* Custom wellness colors - more vibrant */
+    --wellness-calm: 190 60% 75%;
+    --wellness-energy: 30 85% 70%;
+    --wellness-focus: 150 55% 65%;
+    --wellness-balance: 270 45% 75%;
 
-    /* Gradients */
+    /* Enhanced gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-calm: linear-gradient(135deg, hsl(var(--wellness-calm)), hsl(var(--secondary)));
-    --gradient-warm: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--wellness-energy)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary-glow)), hsl(var(--accent)));
+    --gradient-calm: linear-gradient(135deg, hsl(var(--wellness-calm)), hsl(var(--primary-glow)));
+    --gradient-warm: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--wellness-energy)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
     --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
+    --gradient-gentle: linear-gradient(135deg, hsl(var(--muted)), hsl(var(--card)));
 
-    /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(var(--primary) / 0.15);
-    --shadow-warm: 0 8px 30px -8px hsl(var(--accent) / 0.25);
-    --shadow-gentle: 0 2px 12px -2px hsl(var(--muted-foreground) / 0.1);
+    /* Enhanced shadows */
+    --shadow-soft: 0 4px 25px -4px hsl(var(--primary) / 0.2);
+    --shadow-warm: 0 8px 35px -8px hsl(var(--secondary) / 0.3);
+    --shadow-gentle: 0 2px 15px -2px hsl(var(--muted-foreground) / 0.12);
 
     /* Animation */
     --transition-gentle: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -85,33 +86,57 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark mode - calming night theme */
+    --background: 220 25% 8%;
+    --foreground: 200 20% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 20% 12%;
+    --card-foreground: 200 20% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 20% 12%;
+    --popover-foreground: 200 20% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Primary - soft teal for dark mode */
+    --primary: 180 55% 65%;
+    --primary-foreground: 220 25% 8%;
+    --primary-glow: 180 65% 75%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    /* Secondary - muted coral */
+    --secondary: 15 45% 55%;
+    --secondary-foreground: 200 20% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 200 15% 70%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    /* Accent - soft golden */
+    --accent: 45 70% 60%;
+    --accent-foreground: 220 25% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 55% 55%;
+    --destructive-foreground: 200 20% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 220 15% 20%;
+    --input: 220 15% 22%;
+    --ring: 180 55% 65%;
+
+    /* Dark mode wellness colors */
+    --wellness-calm: 190 40% 45%;
+    --wellness-energy: 30 60% 50%;
+    --wellness-focus: 150 35% 45%;
+    --wellness-balance: 270 35% 55%;
+
+    /* Dark mode gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-calm: linear-gradient(135deg, hsl(var(--wellness-calm)), hsl(var(--primary)));
+    --gradient-warm: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--wellness-energy)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
+    --gradient-gentle: linear-gradient(135deg, hsl(var(--muted)), hsl(var(--card)));
+
+    /* Dark mode shadows */
+    --shadow-soft: 0 4px 25px -4px hsl(0 0% 0% / 0.3);
+    --shadow-warm: 0 8px 35px -8px hsl(var(--primary) / 0.2);
+    --shadow-gentle: 0 2px 15px -2px hsl(0 0% 0% / 0.2);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

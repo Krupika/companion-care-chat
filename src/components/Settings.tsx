@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import { useTheme } from "@/hooks/use-theme";
 import { 
   Bell, 
   Moon, 
@@ -19,7 +20,8 @@ import {
   Mail,
   Download,
   Trash2,
-  AlertTriangle
+  AlertTriangle,
+  Monitor
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -30,12 +32,12 @@ interface SettingsProps {
 }
 
 export function Settings({ userName, userFocus, onUpdateProfile }: SettingsProps) {
+  const { theme, setTheme } = useTheme();
   const [name, setName] = useState(userName);
   const [focus, setFocus] = useState(userFocus);
   const [notifications, setNotifications] = useState(true);
   const [dailyCheckins, setDailyCheckins] = useState(true);
   const [soundEffects, setSoundEffects] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
   const [reminderTime, setReminderTime] = useState("09:00");
   const [emergencyContact, setEmergencyContact] = useState("");
 
@@ -190,20 +192,41 @@ export function Settings({ userName, userFocus, onUpdateProfile }: SettingsProps
             />
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="space-y-4">
             <div className="space-y-1">
-              <Label>Dark Mode</Label>
+              <Label>Theme Preference</Label>
               <p className="text-sm text-muted-foreground">
-                Easier on the eyes during evening sessions
+                Choose your preferred theme for better comfort
               </p>
             </div>
-            <div className="flex items-center gap-2">
-              <Sun className="h-4 w-4" />
-              <Switch 
-                checked={darkMode} 
-                onCheckedChange={setDarkMode}
-              />
-              <Moon className="h-4 w-4" />
+            <div className="grid grid-cols-3 gap-2">
+              <Button
+                variant={theme === "light" ? "hero" : "gentle"}
+                size="sm"
+                onClick={() => setTheme("light")}
+                className="flex flex-col gap-1 h-16"
+              >
+                <Sun className="h-4 w-4" />
+                <span className="text-xs">Light</span>
+              </Button>
+              <Button
+                variant={theme === "dark" ? "hero" : "gentle"}
+                size="sm"
+                onClick={() => setTheme("dark")}
+                className="flex flex-col gap-1 h-16"
+              >
+                <Moon className="h-4 w-4" />
+                <span className="text-xs">Dark</span>
+              </Button>
+              <Button
+                variant={theme === "system" ? "hero" : "gentle"}
+                size="sm"
+                onClick={() => setTheme("system")}
+                className="flex flex-col gap-1 h-16"
+              >
+                <Monitor className="h-4 w-4" />
+                <span className="text-xs">System</span>
+              </Button>
             </div>
           </div>
         </CardContent>

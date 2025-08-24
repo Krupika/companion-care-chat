@@ -43,6 +43,50 @@ export function ExerciseGuide({ exercise, onComplete, onClose }: ExerciseGuidePr
   const [isCompleted, setIsCompleted] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
 
+  // Sound effects using Web Audio API
+  const playSound = (type: 'start' | 'step' | 'complete' | 'breathe') => {
+    if (!soundEnabled) return;
+    
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    let frequency = 440;
+    let duration = 0.3;
+    
+    switch (type) {
+      case 'start':
+        frequency = 523; // C5
+        duration = 0.5;
+        break;
+      case 'step':
+        frequency = 659; // E5
+        duration = 0.3;
+        break;
+      case 'complete':
+        frequency = 784; // G5
+        duration = 0.8;
+        break;
+      case 'breathe':
+        frequency = 392; // G4
+        duration = 0.2;
+        break;
+    }
+    
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+    oscillator.type = 'sine';
+    
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + duration);
+  };
+
   useEffect(() => {
     const total = exercise.steps.reduce((sum, step) => sum + step.duration, 0);
     setTotalTime(total);
@@ -55,6 +99,9 @@ export function ExerciseGuide({ exercise, onComplete, onClose }: ExerciseGuidePr
       interval = setInterval(() => {
         setTimeLeft((time) => {
           if (time <= 1) {
+            // Play step transition sound
+            playSound('step');
+            
             // Move to next step or complete
             if (currentStep < exercise.steps.length - 1) {
               setCurrentStep(prev => prev + 1);
@@ -62,9 +109,16 @@ export function ExerciseGuide({ exercise, onComplete, onClose }: ExerciseGuidePr
             } else {
               setIsCompleted(true);
               setIsActive(false);
+              playSound('complete');
               return 0;
             }
           }
+          
+          // Play breathing sound for breathing exercises
+          if (exercise.steps[currentStep]?.type === 'breathing' && time % 4 === 0) {
+            playSound('breathe');
+          }
+          
           return time - 1;
         });
       }, 1000);
@@ -79,6 +133,7 @@ export function ExerciseGuide({ exercise, onComplete, onClose }: ExerciseGuidePr
 
   const startExercise = () => {
     setIsActive(true);
+    playSound('start');
     if (currentStep === 0 && timeLeft === 0) {
       setTimeLeft(exercise.steps[0].duration);
     }

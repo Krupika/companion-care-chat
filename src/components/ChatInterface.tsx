@@ -89,17 +89,26 @@ export function ChatInterface({ userName, userFocus }: ChatInterfaceProps) {
 You don't have to go through this alone. Please consider talking to a mental health professional. 💙`;
     }
     
-    // Enhanced conversation based on context
-    if (lowerMessage.includes("work") || lowerMessage.includes("job")) {
+    // Enhanced conversation based on context with more empathy and actionable advice
+    if (lowerMessage.includes("work") || lowerMessage.includes("job") || lowerMessage.includes("boss") || lowerMessage.includes("deadline")) {
       if (mood === "stressed") {
-        return `Work stress can feel overwhelming. I understand how that pressure can weigh on you 🌱
+        return `Work stress can feel so overwhelming, like you're carrying the weight of the world on your shoulders. I truly understand how that pressure can consume your thoughts 🌱
 
-Here are some quick strategies:
-• Take 3 deep breaths between tasks
-• Step away for 2 minutes every hour
-• Write down what's bothering you - sometimes getting it out of your head helps
+Let's tackle this together with some gentle strategies:
+• **Micro-breaks**: Every 25 minutes, look away from your screen for 30 seconds
+• **Boundary setting**: It's okay to say "I'll get back to you on that" instead of yes immediately
+• **Energy management**: Which tasks drain you most? Can we find ways to make them easier?
 
-What's the most stressful part of your work situation right now?`;
+I'm curious - what specific aspect of work is making you feel most overwhelmed right now? Sometimes naming it can help us address it. 💙`;
+      } else if (mood === "anxious") {
+        return `Work anxiety can create such a knot in your stomach, can't it? That racing mind about deadlines and expectations... I see you, and your feelings are completely valid 💙
+
+Here's what might help right now:
+• **Ground yourself**: Name 3 things you can see at your workspace
+• **Perspective check**: What would you tell a friend in your situation?
+• **One thing at a time**: What's the smallest step you can take right now?
+
+What's been triggering the most anxiety at work lately? I'm here to help you work through it step by step. 🌱`;
       }
     }
     
