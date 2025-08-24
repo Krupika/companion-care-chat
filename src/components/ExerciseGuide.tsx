@@ -11,7 +11,8 @@ import {
   Heart,
   Timer,
   Volume2,
-  VolumeX
+  VolumeX,
+  MessageSquare
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -42,6 +43,48 @@ export function ExerciseGuide({ exercise, onComplete, onClose }: ExerciseGuidePr
   const [totalTime, setTotalTime] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [narrationEnabled, setNarrationEnabled] = useState(true);
+
+  // Text-to-speech using ElevenLabs
+  const speakText = async (text: string) => {
+    if (!narrationEnabled) return;
+    
+    try {
+      const apiKey = localStorage.getItem('elevenlabs_api_key');
+      if (!apiKey) {
+        toast.error("Please add your ElevenLabs API key in Settings for voice narration");
+        return;
+      }
+
+      const response = await fetch('https://api.elevenlabs.io/v1/text-to-speech/EXAVITQu4vr4xnSDxMaL', {
+        method: 'POST',
+        headers: {
+          'Accept': 'audio/mpeg',
+          'Content-Type': 'application/json',
+          'xi-api-key': apiKey
+        },
+        body: JSON.stringify({
+          text: text,
+          model_id: 'eleven_multilingual_v2',
+          voice_settings: {
+            stability: 0.75,
+            similarity_boost: 0.75,
+            style: 0.5,
+            use_speaker_boost: true
+          }
+        })
+      });
+
+      if (response.ok) {
+        const audioBlob = await response.blob();
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        audio.play();
+      }
+    } catch (error) {
+      console.log('Text-to-speech unavailable');
+    }
+  };
 
   // Sound effects using Web Audio API
   const playSound = (type: 'start' | 'step' | 'complete' | 'breathe') => {
@@ -104,12 +147,25 @@ export function ExerciseGuide({ exercise, onComplete, onClose }: ExerciseGuidePr
             
             // Move to next step or complete
             if (currentStep < exercise.steps.length - 1) {
-              setCurrentStep(prev => prev + 1);
-              return exercise.steps[currentStep + 1].duration;
+              const nextStep = currentStep + 1;
+              setCurrentStep(nextStep);
+              
+              // Narrate the next step instruction
+              setTimeout(() => {
+                speakText(exercise.steps[nextStep].instruction);
+              }, 500);
+              
+              return exercise.steps[nextStep].duration;
             } else {
               setIsCompleted(true);
               setIsActive(false);
               playSound('complete');
+              
+              // Narrate completion
+              setTimeout(() => {
+                speakText("Excellent work! You've completed the exercise. Take a moment to notice how you feel.");
+              }, 1000);
+              
               return 0;
             }
           }
@@ -134,6 +190,13 @@ export function ExerciseGuide({ exercise, onComplete, onClose }: ExerciseGuidePr
   const startExercise = () => {
     setIsActive(true);
     playSound('start');
+    
+    // Narrate the first step
+    setTimeout(() => {
+      const welcomeText = `Let's begin the ${exercise.title}. ${exercise.steps[currentStep]?.instruction}`;
+      speakText(welcomeText);
+    }, 500);
+    
     if (currentStep === 0 && timeLeft === 0) {
       setTimeLeft(exercise.steps[0].duration);
     }
@@ -282,8 +345,18 @@ export function ExerciseGuide({ exercise, onComplete, onClose }: ExerciseGuidePr
             variant="ghost"
             size="icon"
             onClick={() => setSoundEnabled(!soundEnabled)}
+            title="Toggle sound effects"
           >
             {soundEnabled ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
+          </Button>
+          
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setNarrationEnabled(!narrationEnabled)}
+            title="Toggle voice narration"
+          >
+            <MessageSquare className={`h-4 w-4 ${narrationEnabled ? 'text-primary' : 'text-muted-foreground'}`} />
           </Button>
           
           {!isActive ? (

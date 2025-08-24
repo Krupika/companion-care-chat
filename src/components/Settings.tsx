@@ -192,6 +192,36 @@ export function Settings({ userName, userFocus, onUpdateProfile }: SettingsProps
             />
           </div>
 
+          <Separator />
+
+          <div className="space-y-4">
+            <div className="space-y-1">
+              <Label>Voice Narration</Label>
+              <p className="text-sm text-muted-foreground">
+                Get soothing voice guidance during exercises
+              </p>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="elevenlabs-api">ElevenLabs API Key (Optional)</Label>
+              <Input
+                id="elevenlabs-api"
+                type="password"
+                placeholder="Enter your ElevenLabs API key for voice narration"
+                onChange={(e) => {
+                  if (e.target.value) {
+                    localStorage.setItem('elevenlabs_api_key', e.target.value);
+                    toast.success("ElevenLabs API key saved for voice narration");
+                  } else {
+                    localStorage.removeItem('elevenlabs_api_key');
+                  }
+                }}
+              />
+              <p className="text-xs text-muted-foreground">
+                Optional: Add your ElevenLabs API key to enable soothing voice narration during exercises
+              </p>
+            </div>
+          </div>
+
           <div className="space-y-4">
             <div className="space-y-1">
               <Label>Theme Preference</Label>
